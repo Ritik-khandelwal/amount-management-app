@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owner Login</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Main Container */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+        }
+
+        /* Login Box */
+        .login-box {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.05);
+            z-index: -1;
+            border-radius: 10px;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 30px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .subheading {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        /* Form Group */
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #333;
+            outline: none;
+            transition: border 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: #0072ff;
+        }
+
+        input::placeholder, select {
+            color: #888;
+        }
+
+        label {
+            display: block;
+            color: #333;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        select {
+            appearance: none;
+            padding-right: 30px;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zY2hlbWVzL3htbG5zL3N2Zz4KPHBhdGggZD0iTTE4Ljc1IDExLjk1TDExLjYyIDE4LjgxTDggMTEuOTdMMTggNi4zNTsiIHN0cm9rZT0icmVkIiBzdHJva2Utd2lkdGg9IjIuMjAiIHN0cm9rZS1saW5lY2FwPSJub3JtYWwiLz4KPC9zdmc+Cg==') no-repeat right center;
+            background-size: 15px;
+            background-color: #fff;
+        }
+
+        /* Submit Button */
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #0072ff;
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #005bb5;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .login-box {
+                padding: 30px;
+                width: 90%;
+            }
+
+            h2 {
+                font-size: 26px;
+            }
+
+            .subheading {
+                font-size: 12px;
+            }
+
+            input, select {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            button {
+                padding: 12px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Welcome Back</h2>
+            <p class="subheading">Please login to your account</p>
+            <form action="/api/users/login" method="POST">
+                <div class="form-group">
+                    <input type="text" id="username" name="username" placeholder="Username" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                </div>
+                <div class="form-group">
+                    <label for="company">Select Company</label>
+                    <select id="company" name="company" required>
+                        <option value="" disabled selected>Select your company</option>
+                        <option value="tutc">Tanishk Ujjwal Trading Company</option>
+                        <option value="company2">Company 2</option>
+                        <option value="company3">Company 3</option>
+                    </select>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
