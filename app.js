@@ -30,9 +30,18 @@ app.get('/dashboard/:companyName', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'user', 'dashboard.html')); // Serve static HTML file
   });
 
+// Admin Login Page Route
+app.get('/admin', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'admin', 'login.html'));
+});
+
+// Admin dashboard Page Route
+app.get('/admin/dashboard', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'admin', 'dashboard.html'));
+});
 
 // Routes
-// app.use('/api/admin', require('./routes/admin'));
+app.use('/api/admin', require('./routes/admin'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api', require('./routes/companies'));
 

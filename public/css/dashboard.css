@@ -32,20 +32,6 @@ header h1 {
     font-size: 28px;
 }
 
-header button {
-    padding: 10px 20px;
-    background-color: #ff3e00;
-    border: none;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-header button:hover {
-    background-color: #e63600;
-}
-
 /* Content layout */
 .content {
     display: flex;

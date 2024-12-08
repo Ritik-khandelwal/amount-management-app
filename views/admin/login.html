@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your external CSS -->
+    <style>
+        /* Reset and basic styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        .login-container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-container h1 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #0072ff;
+        }
+
+        .login-container p {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .login-container form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #0072ff;
+            outline: none;
+        }
+
+        .form-group button {
+            padding: 14px;
+            background-color: #0072ff;
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-group button:hover {
+            background-color: #005bb5;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        /* Responsive design */
+        @media screen and (max-width: 480px) {
+            .login-container {
+                padding: 20px;
+            }
+
+            .login-container h1 {
+                font-size: 24px;
+            }
+
+            .form-group input, 
+            .form-group button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Admin Login</h1>
+        <p>Please login with your credentials</p>
+        <form id="admin-login-form" action="/api/admin/login" method="POST">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Login</button>
+            </div>
+        </form>
+        <div class="error-message" id="error-message"></div>
+    </div>
+</body>
+</html>
