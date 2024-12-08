@@ -2,34 +2,34 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 
-// Login a user (with company selection)
+// Handle user login
 router.post('/login', async (req, res) => {
   const { username, password, company } = req.body;
 
   try {
+    // Check if the user exists
     const user = await User.findOne({ username, company });
+
     if (!user) {
-      return res.status(401).json({ message: 'Invalid credentials or company selection' });
+      return res.status(400).json({ message: 'Invalid credentials' });  // Use return to prevent further responses
     }
 
+    // Check if the password matches
     const isMatch = await user.matchPassword(password);
 
     if (!isMatch) {
-      return res.status(401).json({ message: 'Invalid credentials' });
+      return res.status(400).json({ message: 'Invalid credentials' });  // Again, return here
     }
 
-    const token = jwt.sign({ userId: user._id, username: user.username, company: user.company }, 'your-secret-key', {
-      expiresIn: '1h',
-    });
+    // Return a success message and token (assuming you generate a JWT)
+    const token = 'dummy-token';  // You can generate a real JWT here if needed
+    res.status(200).redirect(`/dashboard/${company}`);
 
-    res.status(200).json({
-      message: 'Login successful',
-      token,
-    });
-  } catch (error) {
-    res.status(500).json({ message: 'Error logging in', error: error.message });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
   }
 });
 
