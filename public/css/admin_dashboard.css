@@ -1,0 +1,332 @@
+/* General Styles */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+    margin: 0;
+    line-height: 1.6;
+    padding: 0;
+}
+
+/* Header */
+header {
+    background-color: #2c3e50;
+    color: #ffffff;
+    padding: 20px 30px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header-content h1 {
+    font-size: 2rem;
+    margin: 0;
+    font-weight: 600;
+}
+
+.header-content p {
+    font-size: 1.1rem;
+    margin-top: 5px;
+    font-weight: 400;
+}
+
+/* Company List */
+.company-list {
+    margin: 60px 20px;
+    text-align: center;
+}
+
+.company-list h2 {
+    font-size: 1.8rem;
+    color: #3498db;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.add-company-btn {
+    background-color: #3498db;
+    color: white;
+    padding: 14px 25px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.add-company-btn:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.loading {
+    font-size: 1.1rem;
+    color: #7f8c8d;
+}
+
+.companies {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    justify-content: center;
+}
+
+.company-block {
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
+    opacity: 0.9;
+    color: #333;
+    position: relative;
+    overflow: hidden;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #ecf0f1; /* Light blue-grey */
+}
+
+.company-block:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    opacity: 1;
+}
+
+.company-block span {
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.company-block p {
+    margin: 15px 0;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.error-message {
+    color: red;
+    font-size: 1.1rem;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal .modal-content {
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 30px;
+    width: 500px;
+    max-width: 90%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align content to the left */
+}
+
+.modal h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #2980b9;
+    font-weight: 600;
+}
+
+.modal input,
+.modal textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 1rem;
+    color: #333;
+    transition: border-color 0.3s;
+}
+
+.modal input:focus,
+.modal textarea:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+.modal button {
+    background-color: #3498db;
+    color: white;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-top: 10px;
+}
+
+.modal button:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #e74c3c;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 50%;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.modal-close-btn:hover {
+    background-color: #c0392b;
+}
+
+/* Edit & Delete Buttons */
+.edit-btn,
+.delete-btn {
+    background-color: #2980b9;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-right: 10px;
+}
+
+.edit-btn:hover,
+.delete-btn:hover {
+    background-color: #3498db;
+    transform: translateY(-2px);
+}
+
+.delete-btn {
+    background-color: #e74c3c;
+}
+
+.delete-btn:hover {
+    background-color: #c0392b;
+}
+
+.confirm-container {
+    width: 100%;
+}
+
+.company-link {
+    color: #000000d3;
+    text-decoration: none;
+}
+
+/* Confirmation Dialog */
+.confirm-btn,
+.cancel-btn {
+    width: 48%;
+    padding: 14px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+}
+
+.confirm-btn {
+    background-color: #27ae60;
+}
+
+.confirm-btn:hover {
+    background-color: #2ecc71;
+}
+
+.cancel-btn {
+    background-color: #e74c3c;
+}
+
+.cancel-btn:hover {
+    background-color: #c0392b;
+}
+
+/* Animations */
+@keyframes modal-appear {
+    from {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Modal Appear Effect */
+.modal-content {
+    animation: modal-appear 0.3s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .company-list h2 {
+        font-size: 1.5rem;
+    }
+
+    .company-block {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .modal .modal-content {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .add-company-btn {
+        font-size: 1rem;
+        padding: 12px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .company-block {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .company-block span {
+        font-size: 1rem;
+    }
+
+    .add-company-btn {
+        width: 100%;
+        padding: 14px 22px;
+    }
+}

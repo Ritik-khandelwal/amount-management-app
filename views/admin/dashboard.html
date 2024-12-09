@@ -3,9 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/css/admin_dashboard.css">
 </head>
 <body>
-    <h1>Hi! This is Admin's Dashboard</h1>
+    <header>
+        <div class="header-content">
+            <h1>Welcome, Ritik</h1>
+            <p>Your Dashboard</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="company-list">
+            <h2>Companies You Work For</h2>
+            <button id="add-company-btn" class="add-company-btn">Add New Company</button>
+            <div class="loading" id="loading">Loading companies...</div>
+            <div class="companies" id="companies-container">
+                <!-- Company blocks will be dynamically rendered here -->
+            </div>
+            <p class="error-message" id="error-message" hidden></p>
+        </section>
+    </main>
+
+    <!-- Modal for Add/Edit Company -->
+    <div id="company-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal" id="close-modal">&times;</span>
+            <h3 id="modal-title">Add Company</h3>
+            <form id="company-form">
+                <input type="hidden" id="company-id">
+                <label for="company-name">Name:</label>
+                <input type="text" id="company-name" required>
+                <label for="company-description">Description:</label>
+                <textarea id="company-description"></textarea>
+                <button type="submit" id="save-btn">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirmation Dialog -->
+    <div id="confirmation-modal" class="modal hidden">
+        <div class="modal-content">
+            <p>Are you sure you want to delete this company?</p>
+            <div class="confirm-container">
+                <button id="confirm-delete-btn" class="confirm-btn">Yes, Delete</button>
+                <button id="cancel-delete-btn" class="cancel-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/admin_dashboard.js"></script>
 </body>
 </html>
