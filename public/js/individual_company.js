@@ -2,6 +2,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const companyName = decodeURIComponent(window.location.pathname.split('/')[2]);
     document.getElementById("company-name").textContent = companyName;
 
+    // Show Notification
+    function showNotification(message, isError = false) {
+        const notification = document.getElementById("notification");
+        const messageElement = document.getElementById("notification-message");
+
+        messageElement.textContent = message;
+        notification.classList.toggle('error', isError);
+        notification.style.display = 'block';
+
+        setTimeout(() => {
+            notification.style.display = 'none';
+        }, 3000); // Hide notification after 3 seconds
+    }
+
     // Fetch receivables and payables
     async function fetchAmounts() {
         try {
@@ -17,9 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
         } catch (error) {
             console.error("Error fetching amounts:", error);
+            showNotification("Failed to fetch data. Please try again.", true);
         }
     }
-    
 
     // Populate the table with data
     function populateTable(selector, data, totalSelector) {
@@ -57,9 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const totalElement = document.querySelector(totalSelector);
         totalElement.textContent = formatter.format(totalAmount);
     }
-    
-    
-    
 
     // Save updated data
     async function saveEntry(entryId, updatedData) {
@@ -73,9 +84,11 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (!response.ok) throw new Error('Failed to update entry.');
-            alert("Entry updated successfully.");
+            showNotification("Entry updated successfully.");
+            fetchAmounts(); // Refresh the table
         } catch (error) {
             console.error("Error saving entry:", error);
+            showNotification("Failed to save entry. Please try again.", true);
         }
     }
 
@@ -87,15 +100,59 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (!response.ok) throw new Error('Failed to delete entry.');
-            alert("Entry deleted successfully.");
+            showNotification("Entry deleted successfully.");
             fetchAmounts(); // Refresh the table
         } catch (error) {
             console.error("Error deleting entry:", error);
+            showNotification("Failed to delete entry. Please try again.", true);
         }
     }
 
-    // Event listener for Save and Delete buttons
-    document.body.addEventListener('click', (event) => {
+    // Open the modal for adding a new entry
+    document.querySelector('#add-entry-btn').addEventListener('click', () => {
+        const modal = document.getElementById('add-entry-modal');
+        modal.style.display = 'flex'; // Show the modal
+    });
+
+    // Cancel button inside the modal
+    document.querySelector('#cancel-entry-btn').addEventListener('click', () => {
+        const modal = document.getElementById('add-entry-modal');
+        modal.style.display = 'none'; // Close the modal
+    });
+
+    // Handle the form submission for adding a new entry
+    document.querySelector('#add-entry-form').addEventListener('submit', async (event) => {
+        event.preventDefault(); // Prevent the default form submission
+
+        const newEntry = {
+            name: document.getElementById('entry-name').value,
+            amount: parseFloat(document.getElementById('entry-amount').value),
+            asOfDate: document.getElementById('entry-date').value,
+            type: document.getElementById('entry-type').value,
+        };
+
+        try {
+            const response = await fetch(`/api/companies/${companyName}/entries`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newEntry),
+            });
+
+            if (!response.ok) throw new Error('Failed to add new entry.');
+            showNotification("Entry added successfully.");
+            fetchAmounts(); // Refresh the table
+            document.getElementById('add-entry-modal').style.display = 'none'; // Close modal
+        } catch (error) {
+            console.error("Error adding entry:", error);
+            showNotification("Failed to add new entry. Please try again.", true);
+        }
+    });
+
+    // Delegate event listeners for Save and Delete buttons (both receivables and payables)
+    document.querySelector('body').addEventListener('click', (event) => {
+        // Check if the clicked target is the Save button
         if (event.target.classList.contains('save-btn')) {
             const row = event.target.closest('tr');
             const entryId = event.target.dataset.id;
@@ -109,42 +166,17 @@ document.addEventListener('DOMContentLoaded', () => {
     
             // Validate amount to ensure it's a valid number
             if (isNaN(updatedData.amount)) {
-                alert("Invalid amount entered. Please enter a valid number.");
+                showNotification("Invalid amount entered. Please enter a valid number.", true);
                 return;
             }
     
             saveEntry(entryId, updatedData);
         }
 
+        // Check if the clicked target is the Delete button
         if (event.target.classList.contains('delete-btn')) {
             const entryId = event.target.dataset.id;
             deleteEntry(entryId);
-        }
-    });
-
-    // Add a new entry
-    document.querySelector('#add-entry-btn').addEventListener('click', async () => {
-        const newEntry = {
-            name: prompt("Enter name:"),
-            amount: parseFloat(prompt("Enter amount:")),
-            asOfDate: prompt("Enter date (YYYY-MM-DD):"),
-            type: confirm("Is this a receivable? Click OK for yes, Cancel for payable.") ? 'receivable' : 'payable',
-        };
-
-        try {
-            const response = await fetch(`/api/companies/${companyName}/entries`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newEntry),
-            });
-
-            if (!response.ok) throw new Error('Failed to add new entry.');
-            alert("Entry added successfully.");
-            fetchAmounts(); // Refresh the table
-        } catch (error) {
-            console.error("Error adding entry:", error);
         }
     });
 

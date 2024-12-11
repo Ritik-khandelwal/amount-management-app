@@ -56,7 +56,37 @@
             </section>
         </div>
     </div>
+    <div id="notification" class="notification">
+        <p id="notification-message"></p>
+    </div>
 
+    <!-- Modal for adding new entry -->
+<div id="add-entry-modal" class="modal">
+    <div class="modal-content">
+        <h2>Add New Entry</h2>
+        <form id="add-entry-form">
+            <label for="entry-name">Name:</label>
+            <input type="text" id="entry-name" name="name" required>
+
+            <label for="entry-amount">Amount:</label>
+            <input type="number" id="entry-amount" name="amount" required>
+
+            <label for="entry-date">Date (YYYY-MM-DD):</label>
+            <input type="date" id="entry-date" name="asOfDate" required>
+
+            <label for="entry-type">Type:</label>
+            <select id="entry-type" name="type" required>
+                <option value="receivable">Receivable</option>
+                <option value="payable">Payable</option>
+            </select>
+
+            <button type="submit">Save Entry</button>
+            <button type="button" id="cancel-entry-btn">Cancel</button>
+        </form>
+    </div>
+</div>
+
+    
     <script src="/js/individual_company.js"></script>
 </body>
 </html>

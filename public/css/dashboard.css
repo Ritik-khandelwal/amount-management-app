@@ -9,14 +9,17 @@ body {
     font-family: 'Arial', sans-serif;
     background-color: #0c63f8;
     color: #333;
+    line-height: 1.5;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 /* Container and layout */
 .container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 100%;
     margin: 0 auto;
     padding: 20px;
+    overflow-x: hidden; /* Prevent horizontal scrolling within container */
 }
 
 header {
@@ -26,10 +29,26 @@ header {
     background-color: #0072ff;
     padding: 20px;
     color: #fff;
+    flex-wrap: wrap; /* Allow header content to wrap on small screens */
 }
 
 header h1 {
     font-size: 28px;
+    flex: 1;
+}
+
+header button {
+    font-size: 16px;
+    padding: 10px 20px;
+    background-color: #ff9f00;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+header button:hover {
+    background-color: #ff7e00;
 }
 
 /* Content layout */
@@ -38,6 +57,7 @@ header h1 {
     flex-direction: column;
     gap: 40px;
     margin-top: 20px;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 section {
@@ -57,12 +77,15 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
+    overflow-x: auto; /* Allow horizontal scrolling for small screens */
+    table-layout: fixed; /* Prevent the table from expanding beyond the container */
 }
 
 th, td {
     padding: 12px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    word-wrap: break-word; /* Break long words to prevent overflow */
 }
 
 th {
@@ -90,9 +113,10 @@ input[type="checkbox"] {
 }
 
 /* Responsiveness */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1200px) {
+    /* Decrease header font size for medium screens */
     header h1 {
-        font-size: 22px;
+        font-size: 24px;
     }
 
     header button {
@@ -101,11 +125,11 @@ input[type="checkbox"] {
     }
 
     .content {
-        gap: 20px;
+        gap: 30px;
     }
 
     h2 {
-        font-size: 20px;
+        font-size: 22px;
     }
 
     table {
@@ -114,5 +138,86 @@ input[type="checkbox"] {
 
     .total {
         font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    /* Adjust header and button layout for small screens */
+    header {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+    }
+
+    header h1 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    header button {
+        font-size: 14px;
+        padding: 8px 16px;
+        margin-top: 10px;
+    }
+
+    .content {
+        gap: 20px;
+    }
+
+    section {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    table {
+        font-size: 12px;
+    }
+
+    td, th {
+        padding: 10px;
+    }
+
+    .total {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    /* Mobile-friendly layout for very small screens */
+    header h1 {
+        font-size: 18px;
+        margin-bottom: 5px;
+    }
+
+    header button {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .content {
+        gap: 15px;
+    }
+
+    section {
+        padding: 10px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    table {
+        font-size: 10px;
+    }
+
+    td, th {
+        padding: 8px;
+    }
+
+    .total {
+        font-size: 12px;
     }
 }
