@@ -132,6 +132,41 @@ button:disabled {
     transition: background-color 0.3s;
 }
 
+/* Add these styles directly to your individual_company.css file */
+
+/* Style for the checkbox when checked */
+input[type="checkbox"]:checked {
+    background-color: red !important; /* Red background when checked */
+    border-color: red !important;     /* Red border when checked */
+}
+
+/* Style for the checkbox when checked */
+input[type="checkbox"]:checked:before {
+    content: '\2713'; /* Unicode for a check mark */
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    line-height: 20px; /* Adjust check mark positioning */
+}
+
+/* Optional: Adding a border color for the checkbox when not checked */
+input[type="checkbox"] {
+    border: 2px solid #ccc;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    display: inline-block;
+    position: relative;
+}
+
+/* Make the checked checkbox more distinct */
+input[type="checkbox"]:checked {
+    background-color: red !important;
+}
+
 #add-entry-btn:hover {
     background-color: #218838;
 }

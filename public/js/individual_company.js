@@ -10,26 +10,39 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const receivables = await receivablesResponse.json();
             const payables = await payablesResponse.json();
-
-            populateTable("#receivables-table", receivables);
-            populateTable("#payables-table", payables);
-
+    
+            // Populate receivables and payables tables
+            populateTable("#receivables-table", receivables, "#total-receivable");
+            populateTable("#payables-table", payables, "#total-payable");
+    
         } catch (error) {
             console.error("Error fetching amounts:", error);
         }
     }
+    
 
     // Populate the table with data
-    function populateTable(selector, data) {
+    function populateTable(selector, data, totalSelector) {
         const tableBody = document.querySelector(`${selector} tbody`);
         tableBody.innerHTML = ''; // Clear table body
-
+    
+        let totalAmount = 0; // Initialize total amount
+    
+        // Formatter for thousand separators
+        const formatter = new Intl.NumberFormat('en-US', {
+            style: 'decimal',
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
+        });
+    
         data.forEach((item, index) => {
+            totalAmount += item.amount; // Add to total
+    
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${index + 1}</td>
                 <td contenteditable="true" data-field="name">${item.name}</td>
-                <td contenteditable="true" data-field="amount">${item.amount}</td>
+                <td contenteditable="true" data-field="amount">${formatter.format(item.amount)}</td>
                 <td contenteditable="true" data-field="asOfDate">${new Date(item.asOfDate).toISOString().split('T')[0]}</td>
                 <td><input type="checkbox" disabled ${item.markChecked ? "checked" : ""}></td>
                 <td>
@@ -39,7 +52,14 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             tableBody.appendChild(row);
         });
+    
+        // Update the total amount
+        const totalElement = document.querySelector(totalSelector);
+        totalElement.textContent = formatter.format(totalAmount);
     }
+    
+    
+    
 
     // Save updated data
     async function saveEntry(entryId, updatedData) {
@@ -79,13 +99,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (event.target.classList.contains('save-btn')) {
             const row = event.target.closest('tr');
             const entryId = event.target.dataset.id;
-
+    
+            // Extract values from the editable fields
             const updatedData = {
-                name: row.querySelector('[data-field="name"]').textContent,
-                amount: parseFloat(row.querySelector('[data-field="amount"]').textContent),
-                asOfDate: row.querySelector('[data-field="asOfDate"]').textContent,
+                name: row.querySelector('[data-field="name"]').textContent.trim(),
+                amount: parseInt(row.querySelector('[data-field="amount"]').textContent.replace(/,/g, ''), 10), // Parse as an integer
+                asOfDate: row.querySelector('[data-field="asOfDate"]').textContent.trim(),
             };
-
+    
+            // Validate amount to ensure it's a valid number
+            if (isNaN(updatedData.amount)) {
+                alert("Invalid amount entered. Please enter a valid number.");
+                return;
+            }
+    
             saveEntry(entryId, updatedData);
         }
 
