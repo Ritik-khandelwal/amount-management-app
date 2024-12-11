@@ -30,6 +30,7 @@ header {
 
 header h1 {
     font-size: 28px;
+    text-align: center;
 }
 
 /* Content layout */
@@ -53,6 +54,7 @@ h2 {
     color: #0072ff;
 }
 
+/* Table Styling */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -63,6 +65,7 @@ th, td {
     padding: 12px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    vertical-align: middle;
 }
 
 th {
@@ -76,6 +79,61 @@ tr:hover {
 input[type="checkbox"] {
     width: 20px;
     height: 20px;
+    cursor: pointer;
+}
+
+/* Contenteditable styles for editable cells */
+td[contenteditable="true"] {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    outline: none;
+    transition: background-color 0.3s, border-color 0.3s;
+    cursor: text;
+}
+
+td[contenteditable="true"]:focus {
+    background-color: #fff;
+    border-color: #0072ff;
+    box-shadow: 0 0 5px rgba(0, 114, 255, 0.5);
+}
+
+/* Buttons for actions */
+button {
+    padding: 6px 12px;
+    font-size: 14px;
+    color: white;
+    background-color: #0072ff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #005bb5;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Add Entry Button */
+#add-entry-btn {
+    margin-bottom: 20px;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#add-entry-btn:hover {
+    background-color: #218838;
 }
 
 /* Total Section */
@@ -83,6 +141,7 @@ input[type="checkbox"] {
     font-size: 18px;
     font-weight: bold;
     margin-top: 20px;
+    text-align: right;
 }
 
 .total span {
