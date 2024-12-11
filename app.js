@@ -40,6 +40,11 @@ app.get('/admin/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'admin', 'dashboard.html'));
 });
 
+app.get('/admin/:companyName', (req, res) => {
+    const companyName = req.params.companyName;
+    res.sendFile(path.join(__dirname, 'views', 'admin', 'individual_company.html')); // Serve static HTML file
+});
+
 // Routes
 app.use('/api/admin', require('./routes/admin'));
 app.use('/api/users', require('./routes/users'));

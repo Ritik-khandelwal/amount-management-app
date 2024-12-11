@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Retrieve companyName from the URL (or dynamically passed in)
     const companyName = decodeURIComponent(window.location.pathname.split('/')[2]); // Extract companyName from the URL
+    console.log("Extracted companyName:", companyName);
 
     // Set company name on the dashboard
     document.getElementById("company-name").textContent = companyName;
@@ -11,7 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Fetch data from the API using companyName (updated route)
             const receivablesResponse = await fetch(`/api/companies/${companyName}/receivables`);
             const payablesResponse = await fetch(`/api/companies/${companyName}/payables`);
-
+            
+            
             const receivables = await receivablesResponse.json();
             const payables = await payablesResponse.json();
             
