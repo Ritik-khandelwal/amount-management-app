@@ -26,6 +26,11 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/user/login.html'));
 });
 
+// Handle fallback routes
+app.get('*', (req, res) => {
+    res.status(404).send('Page Not Found');
+});
+
 app.get('/dashboard/:companyName', (req, res) => {
     const companyName = req.params.companyName;
     res.sendFile(path.join(__dirname, 'views', 'user', 'dashboard.html')); // Serve static HTML file
